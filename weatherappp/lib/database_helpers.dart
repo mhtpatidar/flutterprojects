@@ -57,6 +57,11 @@ class DatabaseHelper {
     return result.toList();
   }
 
+  Future<List<Map<String, dynamic>>> queryAllRowsWithCon(String id) async {
+    Database? db = await instance.database;
+    var result = await db!.query(table);
+    return result.toList();
+  }
 
   Future<int?> queryRowCount(String id) async {
     Database? db = await instance.database;

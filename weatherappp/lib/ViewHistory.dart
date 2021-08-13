@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:weatherappp/History.dart';
 import 'database_helpers.dart';
 
@@ -12,12 +13,19 @@ class ViewHisory extends StatefulWidget {
 
 class ViewHisoryState extends State<ViewHisory> {
   List<History> list = [];
+  late SharedPreferences sharedPreferences;
 
-  Future<List<Map<String, dynamic>>> getHistory() async {
+  /*Future<List<Map<String, dynamic>>> getHistory() async {
     List<Map<String, dynamic>> listMap = await DatabaseHelper.instance.queryAllRows();
     setState(() {
       listMap.forEach((map) => list.add(History.fromMap(map)));
-    });
+    });*/
+
+    Future<List<Map<String, dynamic>>> getHistory() async {
+      List<Map<String, dynamic>> listMap = await DatabaseHelper.instance.queryAllRowsWithCon(sharedPreferences.getString("mobilenumber").toString());
+      setState(() {
+        listMap.forEach((map) => list.add(History.fromMap(map)));
+      });
 
     return listMap;
   }
@@ -25,8 +33,14 @@ class ViewHisoryState extends State<ViewHisory> {
   @override
   void initState() {
     // TODO: implement initState
-    getHistory();
+    initView();
+
     super.initState();
+  }
+
+  Future<void> initView() async {
+    sharedPreferences = await SharedPreferences.getInstance();
+    getHistory();
   }
 
   @override

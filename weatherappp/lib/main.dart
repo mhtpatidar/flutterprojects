@@ -54,8 +54,8 @@ class _SplashScreenState extends State<SplashScreen> {
 
     String isLogin = sharedPreferences.getString("isLogin").toString();
     if (isLogin != null && !isLogin.isEmpty) {
-      //if (isLogin== "1") {
-      if (true) {
+
+      if (isLogin== "1") {
         setState(() {
           isLoginCall = true;
         });

@@ -21,8 +21,8 @@ class _WeatherScreenState extends State<WeatherScreen>
   late TabController _controller;
   late SharedPreferences sharedPreferences;
   var _tabIndex = 0;
-    Weather? current ;
-   late List<Weather> forecast;
+  Weather? current ;
+  List<Weather>? forecast;
   bool _isInAsyncCall = false;
 
   @override
@@ -133,11 +133,11 @@ class _WeatherScreenState extends State<WeatherScreen>
                     Expanded(
                       child: Container(
                         child: Container(
-                          child: (forecast != null && forecast.length > 0)
+                          child: (forecast != null && forecast!.length > 0)
                               ? ListView.builder(
-                                  itemCount: forecast.length,
+                                  itemCount: forecast!.length,
                                   itemBuilder: (BuildContext ctxt, int i) {
-                                    var  model = forecast[i];
+                                    var  model = forecast![i];
                                     return Card(
                                       shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(15.0),
